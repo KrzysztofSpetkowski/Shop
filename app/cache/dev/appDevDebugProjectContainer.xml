@@ -2336,7 +2336,6 @@
         <service class="Doctrine\ORM\Configuration" public="false">
           <call method="setEntityNamespaces">
             <argument type="collection">
-              <argument key="SecurityBundle">Symfony\Bundle\SecurityBundle\Entity</argument>
               <argument key="ShopAppBundle">Shop\AppBundle\Entity</argument>
             </argument>
           </call>
@@ -2375,19 +2374,6 @@
                     <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
                       <argument type="service" id="annotation_reader"/>
                       <argument type="collection">
-                        <argument>/var/www/html/Shop/vendor/symfony/symfony/src/Symfony/Bundle/SecurityBundle/Entity</argument>
-                        <argument>/var/www/html/Shop/src/Shop/AppBundle/Entity</argument>
-                      </argument>
-                    </service>
-                  </argument>
-                  <argument>Symfony\Bundle\SecurityBundle\Entity</argument>
-                </call>
-                <call method="addDriver">
-                  <argument type="service">
-                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
-                      <argument type="service" id="annotation_reader"/>
-                      <argument type="collection">
-                        <argument>/var/www/html/Shop/vendor/symfony/symfony/src/Symfony/Bundle/SecurityBundle/Entity</argument>
                         <argument>/var/www/html/Shop/src/Shop/AppBundle/Entity</argument>
                       </argument>
                     </service>
