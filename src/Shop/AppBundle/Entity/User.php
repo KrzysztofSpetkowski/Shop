@@ -3,6 +3,8 @@
 namespace Symfony\Bundle\SecurityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var integer
@@ -22,26 +24,33 @@ class User
     private $id;
 
     /**
-     * @var string
+     * @var ArrayCollection
      *
-     * @ORM\Column(name="comments", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
      */
     private $comments;
 
     /**
-     * @var string
+     * @var ArrayCollection
      *
-     * @ORM\Column(name="orders", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="Orders", mappedBy="createdBy")
      */
     private $orders;
 
     /**
-     * @var string
+     * @var ArrayCollection
      *
-     * @ORM\Column(name="votes", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="CommentVote", mappedBy="user"))
      */
     private $votes;
-
+    
+    public function __construct()
+    {
+        parent::__construct();
+        $this->comments = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+        $this->votes = new ArrayCollection();
+    }
 
     /**
      * Get id

@@ -3,6 +3,7 @@
 namespace Symfony\Bundle\SecurityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Orders
@@ -85,18 +86,28 @@ class Orders
     private $totalPrice;
 
     /**
-     * @var string
+     * @var User
      *
-     * @ORM\Column(name="createdBy", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
      */
     private $createdBy;
 
     /**
-     * @var string
+     * @var ArrayCollection
      *
-     * @ORM\Column(name="items", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="OrdersItem", mappedBy="order")
      */
     private $items;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->status = self::STATUS_NEW;
+    }
 
 
     /**

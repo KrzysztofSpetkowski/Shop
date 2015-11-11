@@ -29,11 +29,16 @@ class Category
     private $name;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="product", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
      */
     private $product;
+    
+    
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
 
     /**

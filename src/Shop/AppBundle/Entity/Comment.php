@@ -64,11 +64,18 @@ class Comment
     private $user;
 
     /**
-     * @var string
+     * @var ArrayCollection
      *
      * @ORM\Column(name="votes", type="string", length=255)
      */
     private $votes;
+    
+    
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime("now");
+        $this->votes = new ArrayCollection();
+    }
 
 
     /**

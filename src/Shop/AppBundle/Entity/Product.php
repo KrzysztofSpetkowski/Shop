@@ -3,12 +3,17 @@
 namespace Symfony\Bundle\SecurityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Product
  *
- * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Table(name="product")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
+ * @Vich\Uploadable
  */
 class Product
 {
@@ -25,6 +30,9 @@ class Product
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * 
+     * @Assert\NotBlank()
+     * @Assert\Length(min=5, minMessage="products.min_lenght")
      */
     private $name;
 
@@ -32,6 +40,7 @@ class Product
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -39,6 +48,8 @@ class Product
      * @var string
      *
      * @ORM\Column(name="price", type="decimal")
+     * 
+     * @Assert\NotBlank()
      */
     private $price;
 
@@ -53,11 +64,13 @@ class Product
      * @var string
      *
      * @ORM\Column(name="category", type="string", length=255)
+     * 
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
      */
     private $category;
 
     /**
-     * @var string
+     * @var ArrayCollection
      *
      * @ORM\Column(name="comments", type="string", length=255)
      */
